@@ -1,0 +1,64 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout_Layui_Admin.cshtml";
+}
+
+<style type="text/css" >
+    .layui-table-cell {
+        display: table-cell;
+        vertical-align: middle;
+    }
+</style>
+
+<table id="demo" lay-filter="test"></table>
+
+<script type="text/回头ml" id="barDemo">
+    <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
+    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+</script>
+
+<script src="~/Content/layui/layui.js"></script>
+<script>
+    layui.use('table', function () {
+        var table = layui.table;
+
+        //第一个实例
+        table.render({
+            elem: '#demo'
+            , url: '/api/UserEntities/' //数据接口
+            , height: 'full-150'
+            , page: true //开启分页
+            , toolbar: '#barDemo'
+            , cols: [[ //表头
+                { checkbox: true }
+                , { field: 'Id', title: 'ID', width: 80, sort: true }
+                , { field: 'UserName', title: '用户名', width: 80 }
+                , { field: 'Sex', title: '性别', width: 80, sort: true }
+                , { field: 'City', title: '城市', width: 80 }
+                , { field: 'Sign', title: '签名', width: 177 }
+                , { field: 'Experience', title: '积分', width: 80, sort: true }
+                , { field: 'Score', title: '评分', width: 80, sort: true }
+                , { field: 'Classify', title: '职业', width: 80 }
+                , { field: 'Wealth', title: '财富', width: 135, sort: true }
+            ]]
+            , response: {
+                statusName: 'Code' //规定数据状态的字段名称，默认：code
+                , statusCode: 0 //规定成功的状态码，默认：0
+                , msgName: 'Msg' //规定状态信息的字段名称，默认：msg
+                , countName: 'Count' //规定数据总数的字段名称，默认：count
+                , dataName: 'Data' //规定数据列表的字段名称，默认：data
+            }
+            , request: {
+                pageName: 'pageIndex' //页码的参数名称，默认：page
+                , limitName: 'pageSize' //每页数据量的参数名，默认：limit
+            }
+            , text: {
+                none: '暂无相关数据' //默认：无数据。注：该属性为 layui 2.2.5 开始新增
+            }
+            , limit: 5 //注意：请务必确保 limit 参数（默认：10）是与你服务端限定的数据条数一致
+            , limits: [2, 3, 4, 5, 6, 10]
+        });
+    });
+</script>
